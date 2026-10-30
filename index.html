@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Duesday: Study & Notes</title>
+  <meta name="description" content="Upload your syllabus. Duesday tells you when to study, what to study, and how. Join the waitlist. Launching January 2027.">
+  <meta name="theme-color" content="#22B35E">
+  <meta property="og:title" content="Duesday: know exactly what to study">
+  <meta property="og:description" content="Upload your syllabus. Duesday tells you when to study, what to study, and how. Join the waitlist.">
+  <meta property="og:url" content="https://duesdayapp.com/">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <a class="wordmark" href="./" aria-label="Duesday home">
+        <svg viewBox="0 0 64 64" aria-hidden="true">
+          <rect x="2" y="6" width="60" height="56" rx="16" fill="var(--green-shadow)"/>
+          <rect x="2" y="2" width="60" height="56" rx="16" fill="var(--green)"/>
+          <path d="M19 31l9 9 17-18" fill="none" stroke="var(--on-green)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Duesday
+      </a>
+      <span class="pill">Launching Jan 2027</span>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>Upload your syllabus. <span class="hl">Know exactly what to study.</span></h1>
+        <p class="lede">Duesday turns your syllabus into a study plan that tells you when to study, what to study, and how to study it. Streaks, leaderboards, and a notes app built in.</p>
+      </section>
+
+      <section class="card" id="signup">
+        <form id="join" novalidate>
+          <p class="invited" id="invited" hidden>A friend saved you a spot. Join and they move up the list.</p>
+          <label class="field">
+            <span class="sr">Email</span>
+            <input type="email" name="email" placeholder="Your email" autocomplete="email" inputmode="email" required>
+          </label>
+          <label class="field">
+            <span class="sr">School</span>
+            <input type="text" name="school" placeholder="What school are you at?" autocomplete="organization" maxlength="120" required>
+          </label>
+          <input class="trap" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button class="btn" type="submit">
+            <span class="label">Join the waitlist</span>
+            <span class="spinner" aria-hidden="true"></span>
+          </button>
+          <p class="error" id="error" role="alert" hidden></p>
+          <p class="fine">For university and college students. We'll email you when Duesday launches. No spam.</p>
+        </form>
+
+        <div id="done" hidden aria-live="polite">
+          <svg class="check" viewBox="0 0 72 72" aria-hidden="true">
+            <circle cx="36" cy="36" r="34"/>
+            <path d="M22 37l10 10 19-21"/>
+          </svg>
+          <h2 id="done-title">You're in!</h2>
+          <p class="spot">You're <span class="num">#<span id="spot">0</span></span> on the list</p>
+          <p class="muted" id="total"></p>
+          <div class="invite">
+            <p><strong>Want to move up?</strong> Every friend who joins with your link bumps you up the list. Top inviters get their first month free.</p>
+            <div class="linkrow">
+              <input id="link" readonly aria-label="Your invite link">
+              <button class="btn small" id="copy" type="button">Copy</button>
+            </div>
+            <button class="btn secondary" id="share" type="button" hidden>Share with friends</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="peek" aria-label="A sneak peek of Duesday">
+        <h3>Sneak peek</h3>
+        <div class="card stagger">
+          <div class="peek-row">
+            <span class="peek-title">Today</span>
+            <span class="flame" aria-label="12 day streak">🔥 <span class="num">12</span></span>
+          </div>
+          <div class="block">
+            <span class="when">4:00 PM · 45 min</span>
+            <span class="what">Adjusting entries</span>
+            <span class="how">Practice problems: do 5 without peeking, then check.</span>
+          </div>
+          <div class="estimate">
+            <span>Accounting midterm<small>Early estimate, if you stopped now</small></span>
+            <span class="num">68–76%</span>
+          </div>
+        </div>
+      </section>
+
+      <ul class="features">
+        <li><span class="dot">📄</span><div><strong>Reads your syllabus</strong><span class="t">Drop in a PDF, photo, or Word doc. Duesday finds every test, due date, and topic. You check it before anything happens.</span></div></li>
+        <li><span class="dot">🗓️</span><div><strong>Plans around your life</strong><span class="t">Study blocks land in your free time, never on top of class or work, with the topic and the study method picked for you.</span></div></li>
+        <li><span class="dot">📈</span><div><strong>See where you're headed</strong><span class="t">An estimate of your grade on each test, and what would move it up. Always a range, never a promise.</span></div></li>
+        <li><span class="dot">✏️</span><div><strong>Notes, typed or handwritten</strong><span class="t">A full notes app with Apple Pencil support, so you don't need a second one.</span></div></li>
+        <li><span class="dot">🔥</span><div><strong>Streaks and leaderboards</strong><span class="t">Keep your streak alive, race your friends, and climb your school's weekly leaderboard.</span></div></li>
+      </ul>
+    </main>
+
+    <footer>
+      <span>Built by Andre, a student at Brandon University. For Mac, iPad, and iPhone.</span>
+      <nav>
+        <a href="privacy.html">Privacy</a>
+        <a href="support.html">Support</a>
+      </nav>
+    </footer>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
