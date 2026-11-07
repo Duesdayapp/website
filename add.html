@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Add a friend · Duesday</title>
+  <meta name="description" content="A friend invited you to Duesday. Add them and keep each other's study streaks going.">
+  <meta name="theme-color" content="#22B35E">
+  <meta name="robots" content="noindex">
+  <meta property="og:title" content="Add me on Duesday">
+  <meta property="og:description" content="Let's keep each other's study streaks going.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Invite links from the app: duesdayapp.com/add?u=<username> */
+    .friend { text-align: center; display: grid; gap: 14px; justify-items: center; }
+    .avatar {
+      width: 72px; height: 72px; border-radius: 50%;
+      display: grid; place-items: center;
+      font: 800 34px var(--rounded); color: var(--on-green); background: var(--green);
+      box-shadow: 0 5px 0 var(--green-shadow);
+      animation: avatar-pop .45s var(--spring) both;
+    }
+    .friend h1 { font-size: clamp(28px, 7vw, 38px); line-height: 1.1; letter-spacing: -0.02em; margin: 0; }
+    .friend h1 .hl { color: var(--green); overflow-wrap: anywhere; }
+    .friend p { margin: 0; color: var(--muted); font-size: 17px; }
+    .friend .btn { text-decoration: none; margin-top: 6px; }
+    .friend .later { margin-top: 10px; padding-top: 18px; border-top: 2px dashed var(--line); width: 100%; }
+    @keyframes avatar-pop { from { transform: scale(.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) { .avatar { animation: none; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <a class="wordmark" href="./" aria-label="Duesday home">
+        <svg viewBox="0 0 64 64" aria-hidden="true">
+          <rect x="2" y="6" width="60" height="56" rx="16" fill="var(--green-shadow)"/>
+          <rect x="2" y="2" width="60" height="56" rx="16" fill="var(--green)"/>
+          <path d="M19 31l9 9 17-18" fill="none" stroke="var(--on-green)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Duesday
+      </a>
+      <span class="pill">Launching Jan 2027</span>
+    </header>
+
+    <main>
+      <section class="card friend" id="invite" hidden>
+        <div class="avatar" id="letter" aria-hidden="true">?</div>
+        <h1><span class="hl" id="who">@friend</span> wants to be your study buddy</h1>
+        <p>Add them on Duesday and keep each other's streaks going.</p>
+        <a class="btn" id="open" href="./">Open in Duesday</a>
+        <div class="later">
+          <p>Don't have Duesday yet? It launches in January 2027. <a href="./#signup">Join the waitlist</a>, then come back to this link.</p>
+        </div>
+      </section>
+
+      <section class="card friend" id="broken" hidden>
+        <h1>This invite link looks broken</h1>
+        <p>Ask your friend for their username instead, and add them in Duesday under Friends.</p>
+        <a class="btn secondary" href="./">Go to the home page</a>
+      </section>
+    </main>
+
+    <footer>
+      <span>Duesday · hello@duesdayapp.com</span>
+      <nav>
+        <a href="./">Waitlist</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="support.html">Support</a>
+      </nav>
+    </footer>
+  </div>
+
+  <script>
+    // Usernames follow the app's rules: 3 to 20 lowercase letters, numbers, or _.
+    (function () {
+      var raw = new URLSearchParams(location.search).get("u") || "";
+      var username = raw.replace(/^@/, "").trim().toLowerCase();
+      if (!/^[a-z0-9_]{3,20}$/.test(username)) {
+        document.getElementById("broken").hidden = false;
+        return;
+      }
+      document.getElementById("who").textContent = "@" + username;
+      document.getElementById("letter").textContent = username.charAt(0).toUpperCase();
+      document.getElementById("open").href = "duesday://add/" + username;
+      document.getElementById("invite").hidden = false;
+    })();
+  </script>
+</body>
+</html>
