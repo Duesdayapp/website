@@ -15,16 +15,32 @@ const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const inviteCode = (new URLSearchParams(location.search).get("invite") || "").trim().toLowerCase();
 if (/^[0-9a-f]{8}$/.test(inviteCode)) document.getElementById("invited").hidden = false;
 
+// "I'm studying for…" changes what the second box asks. Saved with the school, e.g. "High school: Vincent Massey".
+const KINDS = {
+  uni: { placeholder: "Start typing your school", list: "schools", prefix: "", ask: "Which school are you at? It tells us which campus to visit first." },
+  high: { placeholder: "Which high school?", list: "", prefix: "High school: ", ask: "Which high school are you at?" },
+  exam: { placeholder: "Which exam? (CPA, LSAT, MCAT…)", list: "exams", prefix: "Exam: ", ask: "Which exam are you studying for?" },
+};
+const kind = () => KINDS[form.kind.value] || KINDS.uni;
+form.querySelectorAll("input[name=kind]").forEach((chip) => chip.addEventListener("change", () => {
+  const k = kind();
+  form.school.placeholder = k.placeholder;
+  if (k.list) form.school.setAttribute("list", k.list); else form.school.removeAttribute("list");
+  form.school.value = "";
+  form.school.removeAttribute("aria-invalid");
+  form.school.focus();
+}));
+
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
   if (form.website.value) return; // the hidden box only bots fill in
 
   const email = form.email.value.trim().toLowerCase();
-  const school = form.school.value.trim();
+  const typed = form.school.value.trim();
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return fail("That email doesn't look quite right.", form.email);
-  if (!school) return fail("Which school are you at? It tells us which campus to visit first.", form.school);
+  if (!typed) return fail(kind().ask, form.school);
 
-  await join(email, school);
+  await join(email, (kind().prefix + typed).slice(0, 120));
 });
 
 async function join(email, school, quiet = false) {
@@ -102,7 +118,7 @@ function countUp(element, target) {
 
 function confetti() {
   if (reduceMotion) return;
-  const colours = ["--green", "--orange", "--blue", "--red"].map((name) =>
+  const colours = ["--green", "--orange", "--edge", "--green-shadow"].map((name) =>
     getComputedStyle(document.documentElement).getPropertyValue(name).trim());
   const origin = document.querySelector(".check").getBoundingClientRect();
   for (let i = 0; i < 48; i++) {

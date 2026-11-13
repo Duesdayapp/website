@@ -1,51 +1,39 @@
-/* Duesday website. Colours match the app's named colours (Assets.xcassets/Colors). */
+/* Duesday website. Cream notebook paper, forest green, Rubik: the same look as the app (reference/brand.md). */
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&display=swap");
+
 :root {
-  --green: #22B35E;
-  --green-shadow: #178A47;
-  --orange: #FF8A00;
-  --blue: #2F80ED;
-  --red: #E5484D;
-  --bg: #F7F8FA;
-  --card: #FFFFFF;
-  --text: #111315;
-  --muted: #6B7280;
-  --line: #E3E6EA;
-  --on-green: #FFFFFF;
-  --rounded: ui-rounded, "SF Pro Rounded", "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  --green: #2F7D4A;
+  --green-shadow: #22603A;
+  --orange: #E0742A;
+  --blue: #2F7D4A;
+  --red: #A23A2C;
+  --bg: #FBF6EA;
+  --rule: rgba(90, 130, 190, .13);
+  --card: #FFFDF8;
+  --text: #2B241C;
+  --muted: #6B5F50;
+  --line: #E7DCC5;
+  --edge: #CDBE9E;
+  --on-green: #FFFDF8;
+  --rounded: "Rubik", ui-rounded, system-ui, -apple-system, sans-serif;
+  --body: "Rubik", system-ui, -apple-system, "Segoe UI", sans-serif;
   --spring: cubic-bezier(.34, 1.56, .64, 1);
   color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --green: #34D27A;
-    --green-shadow: #1F9A55;
-    --orange: #FF9F2E;
-    --blue: #5AA2FF;
-    --red: #FF6369;
-    --bg: #111315;
-    --card: #1C1F22;
-    --text: #F2F4F6;
-    --muted: #9BA1A8;
-    --line: #2C3036;
-    --on-green: #06210F;
+    --green: #63BE7E; --green-shadow: #3F8F57; --orange: #F08A3E; --blue: #63BE7E; --red: #F29A8B;
+    --bg: #1C1915; --rule: rgba(242, 234, 219, .025); --card: #27231D; --text: #F2EADB; --muted: #B8AC97;
+    --line: #3A342B; --edge: #554C3F; --on-green: #1C1915;
     color-scheme: dark;
   }
 }
 
 :root[data-theme="dark"] {
-  --green: #34D27A;
-  --green-shadow: #1F9A55;
-  --orange: #FF9F2E;
-  --blue: #5AA2FF;
-  --red: #FF6369;
-  --bg: #111315;
-  --card: #1C1F22;
-  --text: #F2F4F6;
-  --muted: #9BA1A8;
-  --line: #2C3036;
-  --on-green: #06210F;
+  --green: #63BE7E; --green-shadow: #3F8F57; --orange: #F08A3E; --blue: #63BE7E; --red: #F29A8B;
+  --bg: #1C1915; --rule: rgba(242, 234, 219, .025); --card: #27231D; --text: #F2EADB; --muted: #B8AC97;
+  --line: #3A342B; --edge: #554C3F; --on-green: #1C1915;
   color-scheme: dark;
 }
 
@@ -57,7 +45,8 @@ html { -webkit-text-size-adjust: 100%; }
 
 body {
   margin: 0;
-  background: var(--bg);
+  background-color: var(--bg);
+  background-image: repeating-linear-gradient(to bottom, transparent 0 31px, var(--rule) 31px 32px);
   color: var(--text);
   font: 17px/1.5 var(--body);
   -webkit-font-smoothing: antialiased;
@@ -83,16 +72,19 @@ h1, h2, h3, .wordmark, .num { font-family: var(--rounded); }
 }
 .wordmark {
   display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 24px;
+  align-items: flex-end;
+  font-size: 28px;
+  line-height: 1;
   font-weight: 800;
-  color: var(--text);
-  letter-spacing: -0.02em;
+  color: var(--green);
+  letter-spacing: -0.025em;
 }
 .wordmark:hover { text-decoration: none; }
-.wordmark svg { width: 32px; height: 32px; transition: transform .35s var(--spring); }
-.wordmark:hover svg { transform: rotate(-8deg) scale(1.08); }
+/* The folded-page mark stands in for the D, sized to the capital letters. */
+.wordmark .d { width: .74em; height: .74em; margin: 0 .01em .02em 0; flex: none; transition: transform .35s var(--spring); transform-origin: 50% 80%; }
+.wordmark .d .page { fill: currentColor; fill-rule: evenodd; }
+.wordmark .d .fold { fill: currentColor; opacity: .45; }
+.wordmark:hover .d { transform: rotate(-8deg) scale(1.08); }
 .pill {
   font: 700 13px/1 var(--rounded);
   color: var(--green);
@@ -122,12 +114,13 @@ h1, h2, h3, .wordmark, .num { font-family: var(--rounded); }
   background: var(--card);
   border-radius: 24px;
   padding: 24px;
-  box-shadow: 0 1px 0 var(--line), 0 10px 30px rgba(17, 19, 21, .06);
+  border: 2px solid var(--line);
+  box-shadow: 0 5px 0 var(--edge);
 }
 
 /* Form */
 form { display: grid; gap: 12px; }
-.field input {
+.field input, .field select {
   width: 100%;
   font: 17px var(--body);
   color: var(--text);
@@ -177,9 +170,9 @@ form { display: grid; gap: 12px; }
   color: var(--text);
   background: var(--card);
   border: 2px solid var(--line);
-  box-shadow: 0 4px 0 var(--line);
+  box-shadow: 0 4px 0 var(--edge);
 }
-.btn.secondary:active { box-shadow: 0 0 0 var(--line); transform: translateY(4px) scale(.98); }
+.btn.secondary:active { box-shadow: 0 0 0 var(--edge); transform: translateY(4px) scale(.98); }
 .btn.small { width: auto; padding: 12px 18px; font-size: 16px; }
 .btn .spinner {
   display: none;
@@ -253,7 +246,7 @@ form { display: grid; gap: 12px; }
   display: flex; justify-content: space-between; align-items: center;
   padding: 14px 16px; border-radius: 16px; background: var(--bg);
 }
-.estimate .num { font-size: 22px; font-weight: 800; color: var(--green); }
+.estimate .num { white-space: nowrap; font-size: 22px; font-weight: 800; color: var(--green); }
 .estimate small { display: block; color: var(--muted); font-size: 13px; }
 .stagger > * { animation: rise .5s var(--spring) both; }
 .stagger > *:nth-child(2) { animation-delay: .08s; }
@@ -266,7 +259,7 @@ form { display: grid; gap: 12px; }
 .features .dot {
   flex: none; width: 40px; height: 40px; border-radius: 12px;
   display: grid; place-items: center; font-size: 20px;
-  background: var(--card); box-shadow: 0 1px 0 var(--line);
+  background: var(--card); border: 2px solid var(--line); box-shadow: 0 3px 0 var(--edge);
   transition: transform .3s var(--spring);
 }
 .features li:hover .dot { transform: rotate(-8deg) scale(1.1); }
@@ -292,7 +285,7 @@ footer nav { display: flex; gap: 16px; }
   background: color-mix(in srgb, var(--orange) 14%, var(--card));
   font-size: 15px;
 }
-details.faq { background: var(--card); border-radius: 16px; padding: 4px 16px; margin: 10px 0; box-shadow: 0 1px 0 var(--line); }
+details.faq { background: var(--card); border-radius: 16px; padding: 4px 16px; margin: 10px 0; border: 2px solid var(--line); box-shadow: 0 3px 0 var(--edge); }
 details.faq summary {
   cursor: pointer; list-style: none; padding: 12px 0;
   font: 800 17px var(--rounded);
@@ -324,3 +317,21 @@ details.faq p { margin: 0 0 14px; animation: rise .3s var(--spring) both; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; }
 }
+
+/* "I'm in…" choice chips */
+.who { border: 0; margin: 0; padding: 0; display: grid; gap: 8px; }
+.who legend { font: 700 15px var(--rounded); color: var(--muted); margin-bottom: 8px; padding: 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { position: relative; }
+.chip input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.chip span {
+  display: inline-block; padding: 9px 12px; border-radius: 14px;
+  font: 600 15px/1.2 var(--rounded); color: var(--text);
+  background: var(--bg); border: 2px solid var(--line); box-shadow: 0 3px 0 var(--edge);
+  transition: transform .15s var(--spring), background .15s, border-color .15s, color .15s, box-shadow .15s;
+}
+.chip input:active + span { transform: translateY(3px); box-shadow: 0 0 0 var(--edge); }
+.chip input:checked + span { background: var(--green); border-color: var(--green-shadow); color: var(--on-green); box-shadow: 0 3px 0 var(--green-shadow); animation: chipPop .3s var(--spring); }
+.chip input:focus-visible + span { outline: 3px solid color-mix(in srgb, var(--green) 45%, transparent); outline-offset: 2px; }
+@keyframes chipPop { 50% { transform: scale(1.06); } }
+.peek .next { font: 600 13px var(--rounded); color: var(--muted); }

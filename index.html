@@ -4,33 +4,33 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Duesday: Study & Notes</title>
-  <meta name="description" content="Upload your syllabus. Duesday tells you when to study, what to study, and how. Join the waitlist. Launching January 2027.">
-  <meta name="theme-color" content="#22B35E">
-  <meta property="og:title" content="Duesday: know exactly what to study">
-  <meta property="og:description" content="Upload your syllabus. Duesday tells you when to study, what to study, and how. Join the waitlist.">
+  <meta name="description" content="Upload your syllabus. Duesday turns it into a study plan that says when to study, plus notes, streaks, and friends. Join the waitlist. Launching January 2027.">
+  <meta name="theme-color" content="#FBF6EA">
+  <meta property="og:title" content="Duesday: know what to study, and when">
+  <meta property="og:description" content="Upload your syllabus. Duesday tells you when to study and what you need on the rest of each class. Join the waitlist.">
   <meta property="og:url" content="https://duesdayapp.com/">
   <meta property="og:type" content="website">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="wrap">
     <header class="top">
       <a class="wordmark" href="./" aria-label="Duesday home">
-        <svg viewBox="0 0 64 64" aria-hidden="true">
-          <rect x="2" y="6" width="60" height="56" rx="16" fill="var(--green-shadow)"/>
-          <rect x="2" y="2" width="60" height="56" rx="16" fill="var(--green)"/>
-          <path d="M19 31l9 9 17-18" fill="none" stroke="var(--on-green)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        Duesday
+        <svg class="d" viewBox="22 22 56 56" aria-hidden="true">
+          <path class="page" d="M24 33L35 22H50C65.46 22 78 34.54 78 50S65.46 78 50 78H24Z M24 33L35 33L35 22Z M35 45H65A2 2 0 0 1 65 49H35A2 2 0 0 1 35 45Z M35 57H57A2 2 0 0 1 57 61H35A2 2 0 0 1 35 57Z"/>
+          <path class="fold" d="M24 33L35 22V33Z"/>
+        </svg><span>uesday</span>
       </a>
       <span class="pill">Launching Jan 2027</span>
     </header>
 
     <main>
       <section class="hero">
-        <h1>Upload your syllabus. <span class="hl">Know exactly what to study.</span></h1>
-        <p class="lede">Duesday turns your syllabus into a study plan that tells you when to study, what to study, and how to study it. Streaks, leaderboards, and a notes app built in.</p>
+        <h1>Upload your syllabus. <span class="hl">Know what to study, and when.</span></h1>
+        <p class="lede">Duesday reads your syllabus, finds every test and due date, and plans your study time around your classes and your life. A real notes app with Apple Pencil, streaks, and friends are built in.</p>
       </section>
 
       <section class="card" id="signup">
@@ -40,17 +40,175 @@
             <span class="sr">Email</span>
             <input type="email" name="email" placeholder="Your email" autocomplete="email" inputmode="email" required>
           </label>
+          <fieldset class="who">
+            <legend>I'm studying for…</legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="kind" value="uni" checked><span>College or uni</span></label>
+              <label class="chip"><input type="radio" name="kind" value="high"><span>High school</span></label>
+              <label class="chip"><input type="radio" name="kind" value="exam"><span>An exam</span></label>
+            </div>
+          </fieldset>
           <label class="field">
-            <span class="sr">School</span>
-            <input type="text" name="school" placeholder="What school are you at?" autocomplete="organization" maxlength="120" required>
+            <span class="sr" id="school-label">School</span>
+            <input type="text" name="school" list="schools" placeholder="Start typing your school" autocomplete="off" maxlength="120" required>
           </label>
+          <datalist id="schools">
+    <option value="Acadia University">
+    <option value="Algoma University">
+    <option value="Algonquin College">
+    <option value="Ambrose University">
+    <option value="Assiniboine College">
+    <option value="Athabasca University">
+    <option value="Aurora College">
+    <option value="Bishop's University">
+    <option value="Booth University College">
+    <option value="Bow Valley College">
+    <option value="Brandon University">
+    <option value="Briercrest College and Seminary">
+    <option value="British Columbia Institute of Technology">
+    <option value="Brock University">
+    <option value="Cambrian College">
+    <option value="Camosun College">
+    <option value="Canadian Mennonite University">
+    <option value="Canadore College">
+    <option value="Cape Breton University">
+    <option value="Capilano University">
+    <option value="Carleton University">
+    <option value="Centennial College">
+    <option value="Coast Mountain College">
+    <option value="College of New Caledonia">
+    <option value="College of the North Atlantic">
+    <option value="College of the Rockies">
+    <option value="Collège Boréal">
+    <option value="Collège communautaire du Nouveau-Brunswick">
+    <option value="Concordia University">
+    <option value="Concordia University of Edmonton">
+    <option value="Conestoga College">
+    <option value="Confederation College">
+    <option value="Dalhousie University">
+    <option value="Douglas College">
+    <option value="Durham College">
+    <option value="Emily Carr University of Art + Design">
+    <option value="Fanshawe College">
+    <option value="First Nations University of Canada">
+    <option value="Fleming College">
+    <option value="George Brown Polytechnic">
+    <option value="Georgian College">
+    <option value="HEC Montréal">
+    <option value="Holland College">
+    <option value="Humber Polytechnic">
+    <option value="Keyano College">
+    <option value="Kwantlen Polytechnic University">
+    <option value="La Cité">
+    <option value="Lakehead University">
+    <option value="Lakeland College">
+    <option value="Lambton College">
+    <option value="Langara College">
+    <option value="Laurentian University">
+    <option value="Lethbridge College">
+    <option value="Loyalist College">
+    <option value="MacEwan University">
+    <option value="Manitoba Institute of Trades and Technology (MITT)">
+    <option value="McGill University">
+    <option value="McMaster University">
+    <option value="Medicine Hat College">
+    <option value="Memorial University of Newfoundland">
+    <option value="Mohawk College">
+    <option value="Mount Allison University">
+    <option value="Mount Royal University">
+    <option value="Mount Saint Vincent University">
+    <option value="NSCAD University">
+    <option value="New Brunswick Community College">
+    <option value="Niagara College">
+    <option value="Nipissing University">
+    <option value="NorQuest College">
+    <option value="North Island College">
+    <option value="Northern Alberta Institute of Technology (NAIT)">
+    <option value="Northern College">
+    <option value="Northern Lights College">
+    <option value="Northwestern Polytechnic">
+    <option value="Nova Scotia Community College">
+    <option value="Nunavut Arctic College">
+    <option value="OCAD University">
+    <option value="Okanagan College">
+    <option value="Olds College of Agriculture &amp; Technology">
+    <option value="Ontario Tech University">
+    <option value="Polytechnique Montréal">
+    <option value="Portage College">
+    <option value="Queen's University">
+    <option value="Red Deer Polytechnic">
+    <option value="Red River College Polytechnic">
+    <option value="Redeemer University">
+    <option value="Royal Military College of Canada">
+    <option value="Royal Roads University">
+    <option value="Saint Mary's University">
+    <option value="Saskatchewan Polytechnic">
+    <option value="Sault College">
+    <option value="Selkirk College">
+    <option value="Seneca Polytechnic">
+    <option value="Sheridan College">
+    <option value="Simon Fraser University">
+    <option value="Southern Alberta Institute of Technology (SAIT)">
+    <option value="St. Clair College">
+    <option value="St. Francis Xavier University">
+    <option value="St. Lawrence College">
+    <option value="St. Thomas University">
+    <option value="The King's University">
+    <option value="Thompson Rivers University">
+    <option value="Toronto Metropolitan University">
+    <option value="Trent University">
+    <option value="Trinity Western University">
+    <option value="University College of the North">
+    <option value="University of Alberta">
+    <option value="University of British Columbia">
+    <option value="University of Calgary">
+    <option value="University of Guelph">
+    <option value="University of King's College">
+    <option value="University of Lethbridge">
+    <option value="University of Manitoba">
+    <option value="University of New Brunswick">
+    <option value="University of Northern British Columbia">
+    <option value="University of Ottawa">
+    <option value="University of Prince Edward Island">
+    <option value="University of Regina">
+    <option value="University of Saskatchewan">
+    <option value="University of Toronto">
+    <option value="University of Victoria">
+    <option value="University of Waterloo">
+    <option value="University of Windsor">
+    <option value="University of Winnipeg">
+    <option value="University of the Fraser Valley">
+    <option value="Université Laval">
+    <option value="Université Sainte-Anne">
+    <option value="Université de Moncton">
+    <option value="Université de Montréal">
+    <option value="Université de Saint-Boniface">
+    <option value="Université de Sherbrooke">
+    <option value="Université de l'Ontario français">
+    <option value="Université du Québec en Abitibi-Témiscamingue">
+    <option value="Université du Québec en Outaouais">
+    <option value="Université du Québec à Chicoutimi">
+    <option value="Université du Québec à Montréal (UQAM)">
+    <option value="Université du Québec à Rimouski">
+    <option value="Université du Québec à Trois-Rivières">
+    <option value="Vancouver Community College">
+    <option value="Vancouver Island University">
+    <option value="Western University">
+    <option value="Wilfrid Laurier University">
+    <option value="York University">
+    <option value="Yukon University">
+    <option value="École de technologie supérieure">
+          </datalist>
+          <datalist id="exams">
+            <option value="CPA"><option value="CSC"><option value="LSAT"><option value="MCAT"><option value="NCLEX (nursing)"><option value="GMAT"><option value="GRE"><option value="SAT"><option value="ACT">
+          </datalist>
           <input class="trap" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
           <button class="btn" type="submit">
             <span class="label">Join the waitlist</span>
             <span class="spinner" aria-hidden="true"></span>
           </button>
           <p class="error" id="error" role="alert" hidden></p>
-          <p class="fine">For university and college students. We'll email you when Duesday launches. No spam.</p>
+          <p class="fine">For students 14 and up in Canada and the USA. We'll email you when Duesday launches. No spam.</p>
         </form>
 
         <div id="done" hidden aria-live="polite">
@@ -77,26 +235,26 @@
         <div class="card stagger">
           <div class="peek-row">
             <span class="peek-title">Today</span>
-            <span class="flame" aria-label="12 day streak">🔥 <span class="num">12</span></span>
+            <span class="flame" aria-label="12 study sessions done">🔥 <span class="num">12</span></span>
           </div>
           <div class="block">
-            <span class="when">4:00 PM · 45 min</span>
-            <span class="what">Adjusting entries</span>
-            <span class="how">Practice problems: do 5 without peeking, then check.</span>
+            <span class="when">4:00 PM · 90 min</span>
+            <span class="what">Exam Prep Macroeconomics</span>
+            <span class="how">Your midterm is Thursday. Open your notes and go.</span>
           </div>
           <div class="estimate">
-            <span>Accounting midterm<small>Early estimate, if you stopped now</small></span>
-            <span class="num">68–76%</span>
+            <span>What do I need?<small>To hit your B+ in Macroeconomics</small></span>
+            <span class="num">about 81%</span>
           </div>
         </div>
       </section>
 
       <ul class="features">
-        <li><span class="dot">📄</span><div><strong>Reads your syllabus</strong><span class="t">Drop in a PDF, photo, or Word doc. Duesday finds every test, due date, and topic. You check it before anything happens.</span></div></li>
-        <li><span class="dot">🗓️</span><div><strong>Plans around your life</strong><span class="t">Study blocks land in your free time, never on top of class or work, with the topic and the study method picked for you.</span></div></li>
-        <li><span class="dot">📈</span><div><strong>See where you're headed</strong><span class="t">An estimate of your grade on each test, and what would move it up. Always a range, never a promise.</span></div></li>
-        <li><span class="dot">✏️</span><div><strong>Notes, typed or handwritten</strong><span class="t">A full notes app with Apple Pencil support, so you don't need a second one.</span></div></li>
-        <li><span class="dot">🔥</span><div><strong>Streaks and leaderboards</strong><span class="t">Keep your streak alive, race your friends, and climb your school's weekly leaderboard.</span></div></li>
+        <li><span class="dot">📄</span><div><strong>Reads your syllabus</strong><span class="t">Drop in a PDF, photo, or Word doc. Duesday finds every test, due date, and class time. You check it before anything happens.</span></div></li>
+        <li><span class="dot">🗓️</span><div><strong>Plans around your life</strong><span class="t">Study sessions land in your free time, never on top of class, work, or sleep, and never on more days a week than you pick.</span></div></li>
+        <li><span class="dot">🎯</span><div><strong>Know what you need</strong><span class="t">Your grade so far in every class, and about what you need on the rest to hit your goal.</span></div></li>
+        <li><span class="dot">✏️</span><div><strong>Notes, typed or handwritten</strong><span class="t">A full notes app with Apple Pencil, so you don't need a second one. Studying is just taking notes.</span></div></li>
+        <li><span class="dot">🔥</span><div><strong>Streaks that never break</strong><span class="t">Every study session adds to your streak, and it never goes down. Add friends and help your school climb the national board.</span></div></li>
       </ul>
     </main>
 
