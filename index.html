@@ -3,56 +3,742 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Duesday: Study & Notes</title>
-  <meta name="description" content="Upload your syllabus. Duesday turns it into a study plan that says when to study, plus notes, streaks, and friends. Join the waitlist. Launching January 2027.">
+  <meta name="color-scheme" content="light only">
+  <title>Duesday: Five classes. Zero plan. Let's fix that.</title>
+  <meta name="description" content="Drop in your syllabi. Duesday finds every deadline and plans your study time around your life. Notes, streaks, and friends built in. Join the waitlist: launching January 2027.">
   <meta name="theme-color" content="#FBF6EA">
-  <meta property="og:title" content="Duesday: know what to study, and when">
-  <meta property="og:description" content="Upload your syllabus. Duesday tells you when to study and what you need on the rest of each class. Join the waitlist.">
+  <meta property="og:title" content="Five classes. Zero plan. Let's fix that.">
+  <meta property="og:description" content="Drop in your syllabi. Duesday finds every deadline and plans your study time around your life. Join the waitlist.">
   <meta property="og:url" content="https://duesdayapp.com/">
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Duesday">
+  <meta property="og:image" content="https://duesdayapp.com/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Duesday: Five classes. Zero plan. Let's fix that.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://duesdayapp.com/og.png">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <!-- Scroll animations wait for app.js. If it never arrives (slow or blocked), everything simply shows. -->
+  <script>document.documentElement.className="reveal-on";setTimeout(function(){if(!window.duesdayReady)document.documentElement.className=""},3000)</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400..800&display=swap">
   <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
 </head>
-<body>
-  <div class="wrap">
+<body class="funnel">
+  <!-- Icons, drawn once and reused. -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="mark" viewBox="22 22 56 56"><path fill-rule="evenodd" d="M24 33L35 22H50C65.46 22 78 34.54 78 50S65.46 78 50 78H24Z M24 33L35 33L35 22Z M35 45H65A2 2 0 0 1 65 49H35A2 2 0 0 1 35 45Z M35 57H57A2 2 0 0 1 57 61H35A2 2 0 0 1 35 57Z"/><path opacity=".45" d="M24 33L35 22V33Z"/></symbol>
+      <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12.7 2.3c.4 2.7 1.9 4.3 3.3 6 1.4 1.6 2.6 3.3 2.6 5.8a6.6 6.6 0 0 1-13.2 0c0-2.2 1-3.9 2.4-5.2.1 1.4.8 2.5 1.9 3-.3-3.5.8-7 3-9.6z"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+      <symbol id="i-x" viewBox="0 0 24 24"><path d="M7 7l10 10M17 7L7 17"/></symbol>
+      <symbol id="i-half" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor" stroke="none"/></symbol>
+      <symbol id="i-doc" viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7z M14 3v5h5 M10 13h6 M10 17h4"/></symbol>
+      <symbol id="i-cal" viewBox="0 0 24 24"><path d="M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z M4 10h16 M8 3v4 M16 3v4"/></symbol>
+      <symbol id="i-note" viewBox="0 0 24 24"><path d="M6 4h12v16H6z M9 8h6 M9 12h6 M9 16h3"/></symbol>
+      <symbol id="i-cards" viewBox="0 0 24 24"><path d="M4 9h12v10H4z M8 9V5h12v10h-4"/></symbol>
+      <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M4 20l1-4L16.5 4.5a2.1 2.1 0 0 1 3 3L8 19z M14.5 6.5l3 3"/></symbol>
+      <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r=".8"/></symbol>
+      <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M8 4h8v5a4 4 0 0 1-8 0z M8 6H5c0 2.2 1.2 3.7 3.2 4 M16 6h3c0 2.2-1.2 3.7-3.2 4 M12 13v4 M9 20h6 M10 17h4"/></symbol>
+      <symbol id="i-quiz" viewBox="0 0 24 24"><path d="M5 5h14v10h-8l-4 4v-4H5z M10.4 8.8a1.7 1.7 0 1 1 2.5 1.5c-.6.3-.9.7-.9 1.3 M12 13.3v.1"/></symbol>
+      <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></symbol>
+      <symbol id="i-cap" viewBox="0 0 24 24"><path d="M3 9.5L12 5l9 4.5-9 4.5z M7 11.5V16c1.5 1.6 8.5 1.6 10 0v-4.5"/></symbol>
+      <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z"/><circle cx="12" cy="12" r="2.5"/></symbol>
+      <symbol id="i-share" viewBox="0 0 24 24"><path d="M12 15V4 M8 8l4-4 4 4 M5 13v6h14v-6"/></symbol>
+      <symbol id="i-msg" viewBox="0 0 24 24"><path d="M5 5h14v11h-9l-4 3v-3H5z"/></symbol>
+      <symbol id="i-cursor" viewBox="0 0 24 24"><path d="M5 3l14 8-6.5 1.6L10 19z"/></symbol>
+    </defs>
+  </svg>
+
+  <div class="page">
     <header class="top">
-      <a class="wordmark" href="./" aria-label="Duesday home">
-        <svg class="d" viewBox="22 22 56 56" aria-hidden="true">
-          <path class="page" d="M24 33L35 22H50C65.46 22 78 34.54 78 50S65.46 78 50 78H24Z M24 33L35 33L35 22Z M35 45H65A2 2 0 0 1 65 49H35A2 2 0 0 1 35 45Z M35 57H57A2 2 0 0 1 57 61H35A2 2 0 0 1 35 57Z"/>
-          <path class="fold" d="M24 33L35 22V33Z"/>
-        </svg><span>uesday</span>
-      </a>
-      <span class="pill">Launching Jan 2027</span>
+      <a class="wordmark" href="./" aria-label="Duesday home"><svg class="d" aria-hidden="true"><use href="#mark"/></svg><span>uesday</span></a>
+      <span class="pill">Launching January 2027</span>
     </header>
 
     <main>
+      <!-- 1. HERO -->
       <section class="hero">
-        <h1>Upload your syllabus. <span class="hl">Know what to study, and when.</span></h1>
-        <p class="lede">Duesday reads your syllabus, finds every test and due date, and plans your study time around your classes and your life. A real notes app with Apple Pencil, streaks, and friends are built in.</p>
+        <div class="hero-copy">
+          <h1><span class="l">Five classes.</span> <span class="l">Zero plan.</span> <span class="l hl">Let's fix that.</span></h1>
+          <p class="lede">Drop in your syllabi. Duesday finds every deadline and plans your study time around your life.</p>
+
+          <div class="card signup" id="signup">
+            <form class="join" novalidate>
+              <p class="invited" hidden>A friend saved you a spot. Join and they move up the list.</p>
+              <label class="field">
+                <span class="sr">Email</span>
+                <input type="email" name="email" placeholder="Your email" autocomplete="email" inputmode="email" required>
+              </label>
+              <fieldset class="who">
+                <legend>I'm studying for…</legend>
+                <div class="chips">
+                  <label class="chip"><input type="radio" name="kind" value="uni" checked><span>College or uni</span></label>
+                  <label class="chip"><input type="radio" name="kind" value="high"><span>High school</span></label>
+                  <label class="chip"><input type="radio" name="kind" value="other"><span>Other</span></label>
+                </div>
+              </fieldset>
+              <label class="field">
+                <span class="sr">School</span>
+                <input type="text" name="school" list="schools" placeholder="Start typing your school" autocomplete="off" maxlength="120" required>
+              </label>
+              <input class="trap" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+              <button class="btn" type="submit">
+                <span class="label">Join the waitlist</span>
+                <span class="spinner" aria-hidden="true"></span>
+              </button>
+              <p class="error" role="alert" hidden></p>
+              <p class="fine">For students 14 and up in Canada and the USA. We'll email you when Duesday launches. No spam. <a href="privacy.html">Privacy</a> · <a href="support.html">Support</a></p>
+              <noscript><p class="fine">Joining needs JavaScript. You can also email <a href="mailto:hello@duesdayapp.com">hello@duesdayapp.com</a> and we'll add you.</p></noscript>
+            </form>
+            <p class="also-in" hidden>You're on the list. <a href="#signup">See your spot and your invite link</a></p>
+
+            <!-- 11. AFTER SIGNING UP (shown in place of whichever form was used) -->
+            <div id="done" hidden aria-live="polite">
+              <div class="win">
+                <svg class="check" viewBox="0 0 72 72" aria-hidden="true">
+                  <g><circle class="disc" cx="36" cy="36" r="34"/><path class="tick" d="M22 37l10 10 19-21"/><rect class="wipe" x="16" y="18" width="42" height="36"/></g>
+                </svg>
+              </div>
+              <h2 id="done-title">You're in!</h2>
+              <p class="spot">You're <span class="num">#<span id="spot">0</span></span> on the list</p>
+              <p class="muted" id="total"></p>
+              <div class="invite">
+                <p><strong>Want to move up?</strong> Every friend who joins with your link bumps you up the list. Top inviters get their first month free.</p>
+                <div class="linkrow">
+                  <input id="link" readonly aria-label="Your invite link">
+                  <button class="btn small" id="copy" type="button">Copy</button>
+                </div>
+                <div class="sharerow">
+                  <button class="btn secondary small" id="share" type="button" hidden><svg class="ic" aria-hidden="true"><use href="#i-share"/></svg>Share</button>
+                  <a class="btn secondary small" id="text-it" href="#"><svg class="ic" aria-hidden="true"><use href="#i-msg"/></svg>Text a friend</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="live-count" aria-live="polite">&nbsp;</p>
+        </div>
+
+        <div class="hero-mock">
+          <div class="sheet-bg s-a" aria-hidden="true"><b>Macroeconomics</b><i></i><i></i><i class="w60"></i><i></i><i class="w40"></i></div>
+          <div class="sheet-bg s-b" aria-hidden="true"><b>Business Law</b><i></i><i class="w60"></i><i></i><i class="w40"></i></div>
+          <div class="phone peek mock loop" style="--loop:16s" role="img" aria-label="Duesday's Home screen on an iPhone, with sample data: today's classes, a study session being finished, and the streak going up by one.">
+            <div class="screen">
+              <div class="p-status"><b>9:41</b><u></u></div>
+              <div class="p-head">
+                <span class="wordmark"><svg class="d"><use href="#mark"/></svg><span>uesday</span></span>
+                <span class="streak-pill"><svg class="ic fill bounce"><use href="#i-flame"/></svg><b class="roll ra"><span>12</span><span>13</span></b></span>
+              </div>
+              <p class="p-quote">“Happy Duesday. Let's knock something off the list.”</p>
+              <div class="strip">
+                <span><i>M</i><b>11</b><u class="on"></u></span><span><i>T</i><b>12</b><u class="on"></u></span><span><i>W</i><b>13</b><u class="on"></u></span><span class="today"><i>T</i><b>14</b><u></u></span><span><i>F</i><b>15</b><u></u></span><span><i>S</i><b>16</b></span><span><i>S</i><b>17</b></span>
+              </div>
+              <div class="ag dipper">
+                <div class="ag-row ct c5"><span class="t">11:00</span><b>Business Law</b></div>
+                <div class="ag-sess c3">
+                  <div><b>Exam Prep Statistics</b><span class="meta">12:30 PM · 90 min</span></div>
+                  <span class="start"><em>Start</em></span><u class="tap"></u>
+                  <span class="ok"><svg class="ic"><use href="#i-check"/></svg></span><u class="bar"></u>
+                </div>
+                <div class="ag-row ct c4"><span class="t">2:30</span><b>Marketing</b></div>
+              </div>
+              <div class="m-card due dipper" style="--n:4">
+                <div class="m-head"><b>Due</b><span class="sub">Submitted</span></div>
+                <div class="due-list"><div class="due-rows">
+                  <div class="due-row out"><span class="nm"><b>Assignment 2</b> Accounting</span><u class="tick go"><svg class="ic"><use href="#i-check"/></svg></u><span class="days red">1 day</span></div>
+                  <div class="due-row"><span class="nm"><b>Midterm</b> Statistics</span><u class="tick"></u><span class="days"><span class="roll rb"><span class="orange">4 days</span><span class="red">3 days</span></span></span></div>
+                  <div class="due-row"><span class="nm"><b>Quiz 2</b> Marketing</span><u class="tick"></u><span class="days"><span class="roll rb"><span class="orange">5 days</span><span class="orange">4 days</span></span></span></div>
+                  <div class="due-row"><span class="nm"><b>Case brief</b> Business Law</span><u class="tick"></u><span class="days"><span class="roll rb"><span class="orange">8 days</span><span class="orange">7 days</span></span></span></div>
+                  <div class="due-row"><span class="nm"><b>Midterm</b> Macroeconomics</span><u class="tick"></u><span class="days"><span class="roll rb"><span>13 days</span><span>12 days</span></span></span></div>
+                </div></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
-      <section class="card" id="signup">
-        <form id="join" novalidate>
-          <p class="invited" id="invited" hidden>A friend saved you a spot. Join and they move up the list.</p>
-          <label class="field">
-            <span class="sr">Email</span>
-            <input type="email" name="email" placeholder="Your email" autocomplete="email" inputmode="email" required>
-          </label>
-          <fieldset class="who">
-            <legend>I'm studying for…</legend>
-            <div class="chips">
-              <label class="chip"><input type="radio" name="kind" value="uni" checked><span>College or uni</span></label>
-              <label class="chip"><input type="radio" name="kind" value="high"><span>High school</span></label>
-              <label class="chip"><input type="radio" name="kind" value="exam"><span>An exam</span></label>
+      <!-- 2. THE PROBLEM -->
+      <section class="sec problem" id="problem">
+        <div class="problem-grid">
+          <div class="problem-copy">
+            <div class="sec-head reveal">
+              <p class="eyebrow">The problem</p>
+              <h2>Right now, your whole term lives in five PDFs.</h2>
             </div>
-          </fieldset>
-          <label class="field">
-            <span class="sr" id="school-label">School</span>
-            <input type="text" name="school" list="schools" placeholder="Start typing your school" autocomplete="off" maxlength="120" required>
-          </label>
-          <datalist id="schools">
+            <p class="problem-text reveal">Every syllabus hides its dates on a different page. Your calendar, your notes, and your flashcards don't talk to each other. And “I'll start Sunday” is not a plan.</p>
+            <p class="kicker reveal">It's not a you problem. It's a five‑PDFs problem.</p>
+          </div>
+          <div class="problem-show">
+            <div class="fan reveal" role="img" aria-label="Five syllabus PDFs, one for each class, each with its deadline written a different way.">
+              <div class="sheet fa1 c1"><b>ECON.pdf</b><i></i><i class="w60"></i><em>week 6?</em></div>
+              <div class="sheet fa2 c2"><b>ACCT.pdf</b><i></i><i class="w60"></i><em>see p. 7</em></div>
+              <div class="sheet fa3 c3"><b>STAT.pdf</b><i></i><i class="w60"></i><em>Jan 18</em></div>
+              <div class="sheet fa4 c4"><b>MKTG.pdf</b><i></i><i class="w60"></i><em>TBD</em></div>
+              <div class="sheet fa5 c5"><b>LAW.pdf</b><i></i><i class="w60"></i><em>15%</em></div>
+            </div>
+            <ul class="stats reveal">
+              <li><b>5</b><span>classes</span></li>
+              <li><b>3</b><span>apps</span></li>
+              <li><b>0</b><span>plans</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- 3. HOW IT WORKS -->
+      <section class="sec steps" id="how">
+        <div class="sec-head reveal">
+          <p class="eyebrow">How it works</p>
+          <h2>Three steps. Then it keeps up with you.</h2>
+        </div>
+        <ol class="step-list">
+          <li class="step card reveal">
+            <div class="sm sm-drop mock" aria-hidden="true">
+              <div class="zone">
+                <div class="pdf"><svg class="ic"><use href="#i-doc"/></svg><b>ECON-syllabus.pdf</b></div>
+              </div>
+              <div class="found f1"><b>Midterm</b><span>Feb 11 · 25%</span><svg class="ic"><use href="#i-check"/></svg></div>
+              <div class="found f2"><b>Quiz 2</b><span>Jan 28 · 5%</span><svg class="ic"><use href="#i-check"/></svg></div>
+              <div class="found f3"><b>Class</b><span>Mon Wed Fri 10:30</span><svg class="ic"><use href="#i-check"/></svg></div>
+            </div>
+            <div class="step-copy">
+              <span class="num">1</span>
+              <h3>Drop in your syllabus</h3>
+              <p>A PDF, a photo, or a Word doc. Duesday finds every test, due date, and class time. You check it before anything happens.</p>
+            </div>
+          </li>
+          <li class="step card reveal" style="--d:.1s">
+            <div class="sm sm-plan mock" aria-hidden="true">
+              <div class="mini-week">
+                <i class="mw ct c1" style="--x:0;--y:0"></i><i class="mw ct c3" style="--x:0;--y:2"></i><i class="mw ss c1 pop q1" style="--x:0;--y:3"></i>
+                <i class="mw ct c2" style="--x:1;--y:0"></i><i class="mw ct c4" style="--x:1;--y:2"></i><i class="mw ss c5 pop q2" style="--x:1;--y:3"></i>
+                <i class="mw ct c1" style="--x:2;--y:0"></i><i class="mw ct c3" style="--x:2;--y:2"></i><i class="mw ss c3 pop q3" style="--x:2;--y:3"></i>
+                <i class="mw ct c2" style="--x:3;--y:0"></i><i class="mw ss c3 pop q4" style="--x:3;--y:1"></i><i class="mw ct c4" style="--x:3;--y:2"></i><i class="mw busy" style="--x:3;--y:3"></i>
+                <i class="mw ct c1" style="--x:4;--y:0"></i><i class="mw ss c2 pop q5" style="--x:4;--y:2"></i>
+              </div>
+              <div class="sliders">
+                <span class="sl c1"><i></i></span><span class="sl c3 more"><i></i></span>
+              </div>
+              <span class="approve"><em>Approve</em><svg class="ic"><use href="#i-check"/></svg></span>
+            </div>
+            <div class="step-copy">
+              <span class="num">2</span>
+              <h3>Approve your plan</h3>
+              <p>Duesday drafts your week around your classes, your job, and your sleep. One class needs more time? Drag its slider. Then tap Approve.</p>
+            </div>
+          </li>
+          <li class="step card reveal" style="--d:.2s">
+            <div class="sm sm-note mock" aria-hidden="true">
+              <div class="np">
+                <p class="tl t1"><b>Study Macroeconomics</b></p>
+                <p class="tl t2">GDP = C + I + G + (X − M)</p>
+                <p class="tl t3">Inflation: prices rising over time</p>
+              </div>
+              <span class="plus1"><svg class="ic fill"><use href="#i-flame"/></svg>+1</span>
+            </div>
+            <div class="step-copy">
+              <span class="num">3</span>
+              <h3>Study by taking notes</h3>
+              <p>Tap Start and a note opens for that class. Type, or write by hand. Two minutes of real writing finishes the session and adds 1 to your streak.</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <!-- 4. THE HOME SCREEN -->
+      <section class="sec home-sec" id="home">
+        <div class="sec-head center reveal">
+          <p class="eyebrow">The Home screen</p>
+          <h2>Your whole term on one page.</h2>
+          <p class="sub">Class times in each class's colour. Study sessions in your free time. What's due, what you're aiming for, and how your streak is doing.</p>
+        </div>
+
+        <!-- Mac window (tablet and desktop) -->
+        <div class="mac-wrap reveal">
+          <div class="mac mock loop" style="--loop:16s" role="img" aria-label="Duesday's Home screen on a Mac, with sample data: this week's classes and study sessions on an hour grid, five classes with their goals, what's due, a friends leaderboard, and grades so far. A study session is dragged to Sunday, another is finished, and the streak goes from 12 to 13.">
+            <div class="mac-bar"><i></i><i></i><i></i><span>Duesday</span></div>
+            <div class="h">
+              <div class="h-top">
+                <span class="wordmark"><svg class="d"><use href="#mark"/></svg><span>uesday</span></span>
+                <span class="h-user">@andre_b</span>
+                <span class="streak-pill"><svg class="ic fill bounce"><use href="#i-flame"/></svg><b class="roll ra"><span>12</span><span>13</span></b></span>
+                <span class="badge"><svg class="ic"><use href="#i-cap"/></svg><b>Brandon University</b></span>
+                <span class="h-quote">“Happy Duesday. Let's knock something off the list.”</span>
+                <span class="mini-btn"><b>Enter grade</b><i class="count">2</i></span>
+                <span class="mini-btn icon"><svg class="ic"><use href="#i-gear"/></svg></span>
+              </div>
+              <div class="h-body dipper">
+                <div class="m-card week">
+                  <div class="m-head"><b>This week</b><span class="sub">Jan 11 to 17</span></div>
+                  <div class="wk-days"><span></span><span>Mon <b>11</b></span><span>Tue <b>12</b></span><span>Wed <b>13</b></span><span class="today">Thu <b>14</b></span><span>Fri <b>15</b></span><span>Sat <b>16</b></span><span>Sun <b>17</b></span></div>
+                  <div class="wk-grid">
+                    <i class="hr" style="--r:0">8 AM</i><i class="hr" style="--r:1">9</i><i class="hr" style="--r:2">10</i><i class="hr" style="--r:3">11</i><i class="hr" style="--r:4">12 PM</i><i class="hr" style="--r:5">1</i><i class="hr" style="--r:6">2</i><i class="hr" style="--r:7">3</i><i class="hr" style="--r:8">4</i><i class="hr" style="--r:9">5</i><i class="hr" style="--r:10">6</i><i class="hr" style="--r:11">7</i><i class="hr" style="--r:12">8</i>
+                    <!-- Monday -->
+                    <div class="blk ct c1" style="--d:1;--s:5;--e:7"><b>Macro&shy;economics</b></div>
+                    <div class="blk ct c3" style="--d:1;--s:10;--e:13"><b>Business Statis&shy;tics</b></div>
+                    <div class="blk ss c1" style="--d:1;--s:14;--e:17"><b>Study Macro&shy;economics</b><span class="ok on"><svg class="ic"><use href="#i-check"/></svg></span></div>
+                    <div class="blk busy" style="--d:1;--s:21;--e:25"><b>Practice</b></div>
+                    <!-- Tuesday -->
+                    <div class="blk ct c2" style="--d:2;--s:2;--e:5"><b>Financial Account&shy;ing</b></div>
+                    <div class="blk ct c5" style="--d:2;--s:6;--e:9"><b>Business Law</b></div>
+                    <div class="blk ct c4" style="--d:2;--s:13;--e:16"><b>Market&shy;ing</b></div>
+                    <div class="blk ss c5" style="--d:2;--s:17;--e:20"><b>Study Business Law</b><span class="ok on"><svg class="ic"><use href="#i-check"/></svg></span></div>
+                    <!-- Wednesday -->
+                    <div class="blk ct c1" style="--d:3;--s:5;--e:7"><b>Macro&shy;economics</b></div>
+                    <div class="blk ct c3" style="--d:3;--s:10;--e:13"><b>Business Statis&shy;tics</b></div>
+                    <div class="blk ss c3" style="--d:3;--s:14;--e:17"><b>Exam Prep Statis&shy;tics</b><span class="ok on"><svg class="ic"><use href="#i-check"/></svg></span></div>
+                    <!-- Thursday (today) -->
+                    <div class="blk ct c2" style="--d:4;--s:2;--e:5"><b>Financial Account&shy;ing</b></div>
+                    <div class="blk ct c5" style="--d:4;--s:6;--e:9"><b>Business Law</b></div>
+                    <div class="blk ss c3 live" style="--d:4;--s:9;--e:12"><b>Exam Prep Statis&shy;tics</b><span class="ok"><svg class="ic"><use href="#i-check"/></svg></span></div>
+                    <div class="blk ct c4" style="--d:4;--s:13;--e:16"><b>Market&shy;ing</b></div>
+                    <div class="blk busy" style="--d:4;--s:18;--e:26"><b>Work</b></div>
+                    <i class="now" style="--d:4;--s:8"></i>
+                    <!-- Friday -->
+                    <div class="blk ct c1" style="--d:5;--s:5;--e:7"><b>Macro&shy;economics</b></div>
+                    <div class="blk ss c2 drag" style="--d:5;--s:10;--e:13"><b>Study Account&shy;ing</b></div>
+                    <i class="cur" style="--d:5;--s:10;--e:13"><svg class="ic"><use href="#i-cursor"/></svg></i>
+                    <!-- Saturday, Sunday -->
+                    <div class="blk busy" style="--d:6;--s:4;--e:16"><b>Work</b></div>
+                    <i class="ghost c2" style="--d:7;--s:12;--e:15"></i>
+                  </div>
+                  <div class="wk-foot"><span class="mini-btn"><b>Schedule</b></span><span class="mini-btn"><b>Blocked hours</b></span><span class="mini-btn icon"><b>+</b></span></div>
+                </div>
+
+                <div class="h-side">
+                  <div class="h-cols">
+                    <div class="col">
+                      <div class="m-card classes">
+                        <div class="m-head"><b>My classes</b></div>
+                        <span class="cls c1"><b>Macroeconomics</b><em>Aiming for A-</em></span>
+                        <span class="cls c2"><b>Financial Accounting</b><em>Aiming for B+</em></span>
+                        <span class="cls c3"><b>Business Statistics</b><em>Aiming for B</em></span>
+                        <span class="cls c4"><b>Marketing</b><em>Aiming for A</em></span>
+                        <span class="cls c5"><b>Business Law</b><em>Aiming for B+</em></span>
+                      </div>
+                      <span class="quiz-btn" data-quizzes><svg class="ic"><use href="#i-quiz"/></svg><b>Tests &amp; quizzes</b></span>
+                      <div class="m-card folders">
+                        <div class="m-head"><b>Other folders</b></div>
+                        <span class="fld"><b>Business Society</b></span>
+                        <span class="fld"><b>Unfiled</b></span>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="m-card due" style="--n:6">
+                        <div class="m-head"><b>Due</b><span class="sub">Submitted</span></div>
+                        <div class="due-list"><div class="due-rows">
+                          <div class="due-row out"><span class="nm"><b>Assignment 2</b> Accounting</span><u class="tick go"><svg class="ic"><use href="#i-check"/></svg></u><span class="days red">1 day</span></div>
+                          <div class="due-row"><span class="nm"><b>Midterm</b> Statistics</span><u class="tick"></u><span class="days"><span class="roll rb"><span class="orange">4 days</span><span class="red">3 days</span></span></span></div>
+                          <div class="due-row"><span class="nm"><b>Quiz 2</b> Marketing</span><u class="tick"></u><span class="days"><span class="roll rb"><span class="orange">5 days</span><span class="orange">4 days</span></span></span></div>
+                          <div class="due-row"><span class="nm"><b>Case brief</b> Business Law</span><u class="tick"></u><span class="days"><span class="roll rb"><span class="orange">8 days</span><span class="orange">7 days</span></span></span></div>
+                          <div class="due-row"><span class="nm"><b>Midterm</b> Macroeconomics</span><u class="tick"></u><span class="days"><span class="roll rb"><span>13 days</span><span>12 days</span></span></span></div>
+                          <div class="due-row"><span class="nm"><b>Assignment 3</b> Accounting</span><u class="tick"></u><span class="days"><span class="roll rb"><span>15 days</span><span>14 days</span></span></span></div>
+                          <div class="due-row"><span class="nm"><b>Midterm</b> Marketing</span><u class="tick"></u><span class="days"><span class="roll rb"><span>19 days</span><span>18 days</span></span></span></div>
+                        </div></div>
+                      </div>
+                      <div class="m-card lb">
+                        <div class="m-head"><b>Leaderboards</b><span class="tabs"><i class="on">Friends</i><i>National</i></span></div>
+                        <ol class="lb-rows">
+                          <li><i class="rk">1</i><span class="lb-move"><b>Maya K.</b><span class="sc"><svg class="ic fill"><use href="#i-flame"/></svg><em>41</em></span></span></li>
+                          <li><i class="rk">2</i><span class="lb-move down"><b>Jordan T.</b><span class="sc"><svg class="ic fill"><use href="#i-flame"/></svg><em>12</em></span></span></li>
+                          <li><i class="rk">3</i><span class="lb-move up you"><b>You</b><span class="sc"><svg class="ic fill"><use href="#i-flame"/></svg><em class="roll ra"><span>12</span><span>13</span></em></span></span></li>
+                          <li><i class="rk">4</i><span class="lb-move"><b>Sam R.</b><span class="sc"><svg class="ic fill"><use href="#i-flame"/></svg><em>9</em></span></span></li>
+                          <li><i class="rk">5</i><span class="lb-move"><b>Priya D.</b><span class="sc"><svg class="ic fill"><use href="#i-flame"/></svg><em>6</em></span></span></li>
+                        </ol>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="m-card grades">
+                    <div class="m-head"><b>My grades</b><span class="sub"><svg class="ic"><use href="#i-eye"/></svg></span></div>
+                    <div class="g-row">
+                      <span class="g c1"><b>B+</b><em>Macro</em><i>goal A-</i></span>
+                      <span class="g c2"><b>B+</b><em>Accounting</em><i>goal B+</i></span>
+                      <span class="g c3"><b>C+</b><em>Statistics</em><i>goal B</i></span>
+                      <span class="g c4"><b>A-</b><em>Marketing</em><i>goal A</i></span>
+                      <span class="g c5"><b>B</b><em>Law</em><i>goal B+</i></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- iPhone (phones) -->
+        <div class="phone-wrap reveal">
+          <div class="phone full mock loop" style="--loop:16s" role="img" aria-label="Duesday's Home screen on an iPhone, with sample data: today's classes and study session, what's due, five classes with their goals, a friends leaderboard, and grades so far. A study session is finished and the streak goes from 12 to 13.">
+            <div class="screen"><div class="scroller">
+              <div class="p-status"><b>9:41</b><u></u></div>
+              <div class="p-head">
+                <span class="wordmark"><svg class="d"><use href="#mark"/></svg><span>uesday</span></span>
+                <span class="streak-pill"><svg class="ic fill bounce"><use href="#i-flame"/></svg><b class="roll ra"><span>12</span><span>13</span></b></span>
+              </div>
+              <p class="p-quote">“Happy Duesday. Let's knock something off the list.”</p>
+              <div class="strip">
+                <span><i>M</i><b>11</b><u class="on"></u></span><span><i>T</i><b>12</b><u class="on"></u></span><span><i>W</i><b>13</b><u class="on"></u></span><span class="today"><i>T</i><b>14</b><u></u></span><span><i>F</i><b>15</b><u></u></span><span><i>S</i><b>16</b></span><span><i>S</i><b>17</b></span>
+              </div>
+              <div class="ag dipper">
+                <div class="ag-row ct c2"><span class="t">9:00</span><b>Financial Accounting</b></div>
+                <div class="ag-row ct c5"><span class="t">11:00</span><b>Business Law</b></div>
+                <div class="ag-sess c3">
+                  <div><b>Exam Prep Statistics</b><span class="meta">12:30 PM · 90 min</span></div>
+                  <span class="start"><em>Start</em></span><u class="tap"></u>
+                  <span class="ok"><svg class="ic"><use href="#i-check"/></svg></span><u class="bar"></u>
+                </div>
+                <div class="ag-row ct c4"><span class="t">2:30</span><b>Marketing</b></div>
+                <div class="ag-row busy"><span class="t">5:00</span><b>Work</b></div>
+              </div>
+              <div class="m-card due dipper" style="--n:4">
+                <div class="m-head"><b>Due</b><span class="sub">Submitted</span></div>
+                <div class="due-list"><div class="due-rows">
+                  <div class="due-row out"><span class="nm"><b>Assignment 2</b> Accounting</span><u class="tick go"><svg class="ic"><use href="#i-check"/></svg></u><span class="days red">1 day</span></div>
+                  <div class="due-row"><span class="nm"><b>Midterm</b> Statistics</span><u class="tick"></u><span class="days"><span class="roll rb"><span class="orange">4 days</span><span class="red">3 days</span></span></span></div>
+                  <div class="due-row"><span class="nm"><b>Quiz 2</b> Marketing</span><u class="tick"></u><span class="days"><span class="roll rb"><span class="orange">5 days</span><span class="orange">4 days</span></span></span></div>
+                  <div class="due-row"><span class="nm"><b>Case brief</b> Business Law</span><u class="tick"></u><span class="days"><span class="roll rb"><span class="orange">8 days</span><span class="orange">7 days</span></span></span></div>
+                  <div class="due-row"><span class="nm"><b>Midterm</b> Macroeconomics</span><u class="tick"></u><span class="days"><span class="roll rb"><span>13 days</span><span>12 days</span></span></span></div>
+                </div></div>
+              </div>
+              <div class="tiles">
+                <span class="cls c1"><b>Macroeconomics</b><em>Aiming for A-</em></span>
+                <span class="cls c2"><b>Financial Accounting</b><em>Aiming for B+</em></span>
+                <span class="cls c3"><b>Business Statistics</b><em>Aiming for B</em></span>
+                <span class="cls c4"><b>Marketing</b><em>Aiming for A</em></span>
+                <span class="cls c5"><b>Business Law</b><em>Aiming for B+</em></span>
+                <span class="quiz-btn" data-quizzes><svg class="ic"><use href="#i-quiz"/></svg><b>Tests &amp; quizzes</b></span>
+              </div>
+              <div class="m-card lb late">
+                <div class="m-head"><b>Leaderboards</b><span class="tabs"><i class="on">Friends</i><i>National</i></span></div>
+                <ol class="lb-rows">
+                  <li><i class="rk">1</i><span class="lb-move"><b>Maya K.</b><span class="sc"><svg class="ic fill"><use href="#i-flame"/></svg><em>41</em></span></span></li>
+                  <li><i class="rk">2</i><span class="lb-move down"><b>Jordan T.</b><span class="sc"><svg class="ic fill"><use href="#i-flame"/></svg><em>12</em></span></span></li>
+                  <li><i class="rk">3</i><span class="lb-move up you"><b>You</b><span class="sc"><svg class="ic fill"><use href="#i-flame"/></svg><em class="roll ra"><span>12</span><span>13</span></em></span></span></li>
+                  <li><i class="rk">4</i><span class="lb-move"><b>Sam R.</b><span class="sc"><svg class="ic fill"><use href="#i-flame"/></svg><em>9</em></span></span></li>
+                </ol>
+              </div>
+              <div class="m-card grades">
+                <div class="m-head"><b>My grades</b><span class="sub"><svg class="ic"><use href="#i-eye"/></svg></span></div>
+                <div class="g-row">
+                  <span class="g c1"><b>B+</b><em>Macro</em><i>goal A-</i></span>
+                  <span class="g c2"><b>B+</b><em>Acct</em><i>goal B+</i></span>
+                  <span class="g c3"><b>C+</b><em>Stats</em><i>goal B</i></span>
+                  <span class="g c4"><b>A-</b><em>Mktg</em><i>goal A</i></span>
+                  <span class="g c5"><b>B</b><em>Law</em><i>goal B+</i></span>
+                </div>
+              </div>
+            </div></div>
+          </div>
+        </div>
+
+        <p class="mock-note reveal">A sample screen with a made-up student. Yours fills in from your own syllabi.</p>
+        <ul class="callouts">
+          <li class="reveal"><strong>Drag a session</strong> to a better time on Mac and iPad.</li>
+          <li class="reveal" style="--d:.08s"><strong>Class times stay put.</strong> Nothing is ever planned on top of them.</li>
+          <li class="reveal" style="--d:.16s"><strong>Handed it in early?</strong> Tick it off and the plan stops preparing for it.</li>
+        </ul>
+      </section>
+
+      <!-- 5. FEATURES -->
+      <section class="sec features" id="features">
+        <div class="sec-head reveal">
+          <p class="eyebrow">What's inside</p>
+          <h2>One app, the whole term.</h2>
+        </div>
+
+        <article class="feat reveal">
+          <div class="feat-copy">
+            <p class="tag"><svg class="ic"><use href="#i-cal"/></svg>The plan</p>
+            <h3>A plan that fits your week. And fixes itself.</h3>
+            <p>Study sessions land in your free time: never on top of class, work, sleep, or anything in your calendar, and never on more days a week than you picked.</p>
+            <ul class="ticks">
+              <li>Class times come straight from your syllabus</li>
+              <li>Works around your job, practice, and sleep</li>
+              <li>Miss a session and it moves itself to your next free spot</li>
+            </ul>
+          </div>
+          <div class="fm fm-plan mock loop" style="--loop:9s" role="img" aria-label="A missed study session moves itself to a free time the next day, with the message: You missed Study Macroeconomics. No stress, it's moved to today at 4 PM.">
+            <div class="dipper">
+              <div class="dname"><b>Monday</b></div>
+              <div class="ag-row ct c1"><span class="t">10:30</span><b>Macroeconomics</b></div>
+              <div class="ag-row busy"><span class="t">1:00</span><b>Work</b></div>
+              <div class="slot"><div class="ag-row ss c1 mover"><span class="t">4:00</span><b>Study Macroeconomics</b><em class="missed">Missed</em></div></div>
+              <div class="dname second"><b>Tuesday</b></div>
+              <div class="ag-row ct c2"><span class="t">9:00</span><b>Financial Accounting</b></div>
+              <div class="slot free"><span>Free at 4:00</span></div>
+              <div class="toast"><b>You missed Study Macroeconomics.</b> No stress, it's moved to today at 4 PM.</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="feat reveal">
+          <div class="feat-copy">
+            <p class="tag"><svg class="ic"><use href="#i-pencil"/></svg>Notes</p>
+            <h3>Notes are built in. Typed or handwritten, on the same page.</h3>
+            <p>Every class gets its own folder. Type on your Mac, write with Apple Pencil on your iPad, and it's all one endless page that never runs out of paper.</p>
+            <ul class="ticks">
+              <li>Blank, lined, or grid paper</li>
+              <li>Write on your slides and pictures</li>
+              <li>Duesday reads your handwriting, so you can search it</li>
+            </ul>
+          </div>
+          <div class="fm fm-note mock loop" style="--loop:10s" role="img" aria-label="A note with typed text, a highlighted word, and a hand-drawn graph on the same page.">
+            <div class="note-bar"><span class="seg"><i class="knob"></i><b>Type</b><b>Write</b></span><span class="dots"><i></i><i></i><i></i></span></div>
+            <div class="paper dipper">
+              <p class="tl n1"><b>Aggregate demand</b></p>
+              <p class="tl n2">AD = C + I + G + (X − M)</p>
+              <p class="tl n3">Shifts right when <span class="hi">spending</span> goes up.</p>
+              <div class="inkbox">
+                <svg class="ink" viewBox="0 0 220 112" aria-hidden="true">
+                  <path d="M30 8c-1 30 0 62 1 92 34 2 96 1 168-1"/>
+                  <path d="M48 24c18 28 52 52 96 62"/>
+                  <path d="M84 16c18 28 52 52 98 60"/>
+                  <path d="M112 62c8-3 15-6 22-10m-9-1l9 1-3 9"/>
+                  <path d="M20 14l4-8 5 7M196 94l8 5-8 4"/>
+                </svg>
+                <span class="lab l1">AD₁</span><span class="lab l2">AD₂</span>
+                <i class="inkcover"><svg class="ic pen"><use href="#i-pencil"/></svg></i>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="feat reveal" data-quizzes>
+          <div class="feat-copy">
+            <p class="tag"><svg class="ic"><use href="#i-quiz"/></svg>Tests &amp; quizzes</p>
+            <h3>Practice quizzes, written from your own notes.</h3>
+            <p>Tell Duesday what the exam looks like. It writes a quiz from your notes and your class slides, so you practise what your class actually covered.</p>
+            <ul class="ticks">
+              <li>Questions come only from your own notes and class materials</li>
+              <li>Typed notes, handwriting, and photos of paper notes all count</li>
+              <li>It's practice, not a prediction of your mark</li>
+            </ul>
+          </div>
+          <div class="fm fm-quiz mock loop" style="--loop:9s" role="img" aria-label="A practice quiz question about aggregate demand, written from the student's own notes. The student picks the right answer.">
+            <div class="dipper">
+              <div class="q-top"><b>Quiz · Macroeconomics</b><span>Question 3 of 8</span></div>
+              <p class="q">What moves the aggregate demand curve to the right?</p>
+              <ul class="opts">
+                <li><span>A drop in consumer confidence</span></li>
+                <li class="right"><span>More government spending</span><i class="okq"><svg class="ic"><use href="#i-check"/></svg></i><u class="tap"></u></li>
+                <li><span>Higher interest rates</span></li>
+                <li><span>A stronger dollar</span></li>
+              </ul>
+              <p class="q-src"><svg class="ic"><use href="#i-pencil"/></svg><span>From your note “Aggregate demand”</span></p>
+            </div>
+          </div>
+        </article>
+
+        <article class="feat reveal">
+          <div class="feat-copy">
+            <p class="tag"><svg class="ic"><use href="#i-target"/></svg>What do I need?</p>
+            <h3>Know what you need on what's left.</h3>
+            <p>Your grade so far in every class, and about what you need on the rest to hit your goal. No spreadsheet, no guessing.</p>
+            <p class="try"><strong>Try it.</strong> Drag any slider (say Quiz 2 goes great) and watch what you need on the rest change.</p>
+          </div>
+          <div class="fm fm-need card" id="need">
+            <div class="need-head"><b>Macroeconomics</b><span>Goal: B+ (77%)</span></div>
+            <p class="need-sofar">So far: <b>71% (B-)</b> on the 40% marked</p>
+            <ul class="marks">
+              <li><span>Quiz 1 <i>5%</i></span><b>72%</b></li>
+              <li><span>Assignment 1 <i>10%</i></span><b>78%</b></li>
+              <li><span>Midterm <i>25%</i></span><b>68%</b></li>
+            </ul>
+            <p class="need-left">What's left <span>drag one, the rest follow</span></p>
+            <div class="need-row" data-weight="5"><label for="need-0">Quiz 2 <i>5%</i></label><output for="need-0"><small>need</small>81%</output><input type="range" id="need-0" min="0" max="100" step="1" value="81"></div>
+            <div class="need-row" data-weight="10"><label for="need-1">Assignment 2 <i>10%</i></label><output for="need-1"><small>need</small>81%</output><input type="range" id="need-1" min="0" max="100" step="1" value="81"></div>
+            <div class="need-row" data-weight="45"><label for="need-2">Final exam <i>45%</i></label><output for="need-2"><small>need</small>81%</output><input type="range" id="need-2" min="0" max="100" step="1" value="81"></div>
+            <div class="need-out" aria-live="polite"><span id="need-cap">For your B+ you need about</span><b id="need-big">81%</b><span id="need-sub">on the 60% that's left</span></div>
+            <div class="need-foot"><p class="need-fine">A sample class, part-way through the term.</p><button class="need-reset" id="need-reset" type="button" hidden>Start over</button></div>
+          </div>
+        </article>
+
+        <article class="feat reveal">
+          <div class="feat-copy">
+            <p class="tag"><svg class="ic"><use href="#i-trophy"/></svg>Streaks &amp; friends</p>
+            <h3>A streak that never breaks. Friends who notice.</h3>
+            <p>Every study session you finish adds 1 to your streak, and it never goes down. Add friends to see who's putting in the work, and help your school climb the national board.</p>
+            <ul class="ticks">
+              <li>School against school, across the country</li>
+              <li>A Friends board with everyone's streak</li>
+              <li>You pick your weekly goal, from 1 to 7 days</li>
+            </ul>
+          </div>
+          <div class="fm fm-social mock loop" style="--loop:8s" role="img" aria-label="A streak counter going up by one, and a sample national leaderboard where one school passes another.">
+            <div class="dipper">
+              <div class="big-streak">
+                <svg class="ic fill bounce"><use href="#i-flame"/></svg>
+                <b class="roll ra"><span>46</span><span>47</span></b>
+                <span class="lbl">study sessions</span>
+                <span class="wk"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><em>3 of 4 days this week</em></span>
+              </div>
+              <div class="m-card lb national">
+                <div class="m-head"><b>National</b><span class="sub">Canada</span></div>
+                <ol class="lb-rows">
+                  <li><i class="rk">1</i><span class="lb-move down"><b>University of Manitoba</b><span class="sc"><svg class="ic fill"><use href="#i-flame"/></svg><em>2,418</em></span></span></li>
+                  <li><i class="rk">2</i><span class="lb-move up you"><b>Brandon University</b><span class="sc"><svg class="ic fill"><use href="#i-flame"/></svg><em class="roll ra"><span>2,418</span><span>2,419</span></em></span></span></li>
+                  <li><i class="rk">3</i><span class="lb-move"><b>University of Winnipeg</b><span class="sc"><svg class="ic fill"><use href="#i-flame"/></svg><em>1,970</em></span></span></li>
+                  <li><i class="rk">4</i><span class="lb-move"><b>University of Regina</b><span class="sc"><svg class="ic fill"><use href="#i-flame"/></svg><em>1,655</em></span></span></li>
+                </ol>
+              </div>
+            </div>
+            <p class="fm-note-line">Sample numbers. On launch day, every school starts at zero.</p>
+          </div>
+        </article>
+      </section>
+
+      <!-- 6. ONE APP INSTEAD OF THREE -->
+      <section class="sec compare" id="compare">
+        <div class="sec-head reveal">
+          <p class="eyebrow">One app instead of three</p>
+          <h2>The calendar, the notes, and the flashcards, finally talking.</h2>
+        </div>
+        <div class="card cmp-card reveal">
+          <table class="cmp">
+            <thead>
+              <tr>
+                <th scope="col"><span class="sr">What it does</span></th>
+                <th scope="col" class="us"><svg class="d" aria-hidden="true"><use href="#mark"/></svg><span>Duesday</span></th>
+                <th scope="col"><svg class="ic" aria-hidden="true"><use href="#i-cal"/></svg><span>Calendar app</span></th>
+                <th scope="col"><svg class="ic" aria-hidden="true"><use href="#i-note"/></svg><span>Notes app</span></th>
+                <th scope="col"><svg class="ic" aria-hidden="true"><use href="#i-cards"/></svg><span>Flashcard app</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Finds your deadlines in your syllabus</th><td class="us"><span class="mk y"><svg class="ic"><use href="#i-check"/></svg><span class="sr">Yes</span></span></td><td><span class="mk p"><svg class="ic"><use href="#i-half"/></svg><span class="sr">Partly: you type them in yourself</span></span></td><td><span class="mk n"><svg class="ic"><use href="#i-x"/></svg><span class="sr">No</span></span></td><td><span class="mk n"><svg class="ic"><use href="#i-x"/></svg><span class="sr">No</span></span></td></tr>
+              <tr><th scope="row">Plans when to study, around class and work</th><td class="us"><span class="mk y"><svg class="ic"><use href="#i-check"/></svg><span class="sr">Yes</span></span></td><td><span class="mk p"><svg class="ic"><use href="#i-half"/></svg><span class="sr">Partly: you plan it yourself</span></span></td><td><span class="mk n"><svg class="ic"><use href="#i-x"/></svg><span class="sr">No</span></span></td><td><span class="mk n"><svg class="ic"><use href="#i-x"/></svg><span class="sr">No</span></span></td></tr>
+              <tr><th scope="row">Moves a missed session to a new time</th><td class="us"><span class="mk y"><svg class="ic"><use href="#i-check"/></svg><span class="sr">Yes</span></span></td><td><span class="mk p"><svg class="ic"><use href="#i-half"/></svg><span class="sr">Partly: you move it yourself</span></span></td><td><span class="mk n"><svg class="ic"><use href="#i-x"/></svg><span class="sr">No</span></span></td><td><span class="mk n"><svg class="ic"><use href="#i-x"/></svg><span class="sr">No</span></span></td></tr>
+              <tr><th scope="row">Typed and handwritten notes</th><td class="us"><span class="mk y"><svg class="ic"><use href="#i-check"/></svg><span class="sr">Yes</span></span></td><td><span class="mk n"><svg class="ic"><use href="#i-x"/></svg><span class="sr">No</span></span></td><td><span class="mk y"><svg class="ic"><use href="#i-check"/></svg><span class="sr">Yes</span></span></td><td><span class="mk n"><svg class="ic"><use href="#i-x"/></svg><span class="sr">No</span></span></td></tr>
+              <tr data-quizzes><th scope="row">Practice quizzes from your own notes</th><td class="us"><span class="mk y"><svg class="ic"><use href="#i-check"/></svg><span class="sr">Yes</span></span></td><td><span class="mk n"><svg class="ic"><use href="#i-x"/></svg><span class="sr">No</span></span></td><td><span class="mk p"><svg class="ic"><use href="#i-half"/></svg><span class="sr">Partly: some do</span></span></td><td><span class="mk p"><svg class="ic"><use href="#i-half"/></svg><span class="sr">Partly: from cards you make yourself</span></span></td></tr>
+              <tr><th scope="row">Shows what you need to hit your goal</th><td class="us"><span class="mk y"><svg class="ic"><use href="#i-check"/></svg><span class="sr">Yes</span></span></td><td><span class="mk n"><svg class="ic"><use href="#i-x"/></svg><span class="sr">No</span></span></td><td><span class="mk n"><svg class="ic"><use href="#i-x"/></svg><span class="sr">No</span></span></td><td><span class="mk n"><svg class="ic"><use href="#i-x"/></svg><span class="sr">No</span></span></td></tr>
+              <tr><th scope="row">Streaks and leaderboards with friends</th><td class="us"><span class="mk y"><svg class="ic"><use href="#i-check"/></svg><span class="sr">Yes</span></span></td><td><span class="mk n"><svg class="ic"><use href="#i-x"/></svg><span class="sr">No</span></span></td><td><span class="mk n"><svg class="ic"><use href="#i-x"/></svg><span class="sr">No</span></span></td><td><span class="mk p"><svg class="ic"><use href="#i-half"/></svg><span class="sr">Partly: some do</span></span></td></tr>
+            </tbody>
+          </table>
+          <p class="cmp-key"><span class="mk p"><svg class="ic" aria-hidden="true"><use href="#i-half"/></svg></span> means you do it by hand, or only some apps do it. Compared by kind of app, not by brand: what a typical one does.</p>
+        </div>
+      </section>
+
+      <!-- 7. WHO'S BUILDING IT -->
+      <section class="sec founder" id="story">
+        <div class="card founder-card reveal">
+          <!-- PHOTO SLOT: to use a real photo, put andre.jpg in this folder and replace the <span class="mono">A</span> below with <img src="andre.jpg" alt="Andre Balcaen" width="320" height="320"> -->
+          <div class="founder-photo"><span class="mono" aria-hidden="true">A</span></div>
+          <div class="founder-copy">
+            <p class="eyebrow">Who's building it</p>
+            <h2>Hi, I'm Andre.</h2>
+            <p>I'm a business student at Brandon University, in Manitoba. Every term starts the same way for me: a stack of syllabi, deadlines everywhere, and a plan that only exists in my head.</p>
+            <p>I couldn't find one app that handled all of it, so I'm building it. Duesday is my first app. I had no coding experience when I started, and I'm building it in public: real progress, real numbers, real mistakes.</p>
+            <p>If you join the waitlist, you'll hear from me once, on launch day. Questions before then? <a href="mailto:hello@duesdayapp.com">hello@duesdayapp.com</a> comes straight to me.</p>
+            <p class="sig">Andre Balcaen</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8. PRICE -->
+      <section class="sec price" id="price">
+        <div class="sec-head center reveal">
+          <p class="eyebrow">Price</p>
+          <h2>Two prices. No tricks.</h2>
+          <p class="sub">One subscription, everything included, on your Mac, iPad, and iPhone.</p>
+        </div>
+        <div class="price-pick reveal">
+          <input class="sr" type="radio" name="plan" id="plan-year" checked>
+          <input class="sr" type="radio" name="plan" id="plan-month">
+          <div class="plan-seg">
+            <i class="plan-knob"></i>
+            <label for="plan-year">Yearly</label>
+            <label for="plan-month">Monthly</label>
+          </div>
+          <div class="card plan">
+            <div class="plan-view year">
+              <p class="amount"><b>$39.99</b><span>a year</span></p>
+              <p class="plan-note">Works out to about $3.33 a month.</p>
+            </div>
+            <div class="plan-view month">
+              <p class="amount"><b>$6.99</b><span>a month</span></p>
+              <p class="plan-note">Good for one busy stretch.</p>
+            </div>
+          </div>
+        </div>
+        <p class="price-fine reveal">Prices in Canadian dollars. In the USA, the App Store shows your price in US dollars. Billed by Apple, cancel anytime in your Apple settings. Joining the waitlist is free and doesn't sign you up for anything.</p>
+      </section>
+
+      <!-- 9. FAQ -->
+      <section class="sec faq-sec" id="faq">
+        <div class="sec-head reveal">
+          <p class="eyebrow">Fair questions</p>
+          <h2>Before you join.</h2>
+        </div>
+        <div class="faqs reveal">
+          <details class="faq"><summary>Which devices does it work on?</summary><p>Mac, iPad, and iPhone. One subscription covers all three. There's no Android or web version for now.</p></details>
+          <details class="faq"><summary>Who is it for?</summary><p>Students 14 and up in Canada and the USA: high school, college, university, and anyone studying for an exam like the CPA, LSAT, or MCAT. Any subject.</p></details>
+          <details class="faq"><summary>What does the AI read? Is my stuff private?</summary><p>Duesday's AI (Claude, made by Anthropic) only reads what a job needs: your syllabus, to find your deadlines<span data-quizzes>, and the text of your notes and slides if you ask for a quiz</span>. It asks you first. Your study plan is made by Duesday's own code, not by AI. Your calendar's busy times are read on your device and never leave it. No ads, no selling your data, no chat with strangers.</p></details>
+          <details class="faq"><summary>How much does it cost?</summary><p>$6.99 a month or $39.99 a year, in Canadian dollars. There's no free trial at launch, and nothing is charged until you subscribe in the app. Joining the waitlist is free.</p></details>
+          <details class="faq"><summary>When does it launch?</summary><p>January 2027, in time for winter term. Join the waitlist and you'll get one email the day it's out.</p></details>
+          <details class="faq"><summary>Will it promise me a grade?</summary><p>No. Nobody can honestly promise you a grade. Duesday shows where you stand and about what you need on what's left. The studying is still yours.</p></details>
+          <details class="faq"><summary>Do I need an Apple Pencil?</summary><p>No. You can type everything. On iPad you can also write by hand with Apple Pencil, and on iPhone with your finger. The Mac shows your handwriting but can't write it.</p></details>
+          <details class="faq"><summary>What if my syllabus is a mess?</summary><p>Give it a PDF, a photo, or a Word doc. You check everything Duesday found before a plan is made, and you can fix anything it got wrong. No date yet? Mark it TBD and fill it in later.</p></details>
+        </div>
+      </section>
+
+      <!-- 10. FINAL CALL TO ACTION -->
+      <section class="sec final" id="final">
+        <div class="final-grid">
+          <div class="final-copy reveal">
+            <h2>Next term, start with a plan.</h2>
+            <p>Join the waitlist. One email on launch day, and that's it.</p>
+            <p class="live-count" aria-live="polite">&nbsp;</p>
+          </div>
+          <div class="card signup reveal" id="join">
+            <form class="join" novalidate>
+              <p class="invited" hidden>A friend saved you a spot. Join and they move up the list.</p>
+              <label class="field">
+                <span class="sr">Email</span>
+                <input type="email" name="email" placeholder="Your email" autocomplete="email" inputmode="email" required>
+              </label>
+              <fieldset class="who">
+                <legend>I'm studying for…</legend>
+                <div class="chips">
+                  <label class="chip"><input type="radio" name="kind" value="uni" checked><span>College or uni</span></label>
+                  <label class="chip"><input type="radio" name="kind" value="high"><span>High school</span></label>
+                  <label class="chip"><input type="radio" name="kind" value="other"><span>Other</span></label>
+                </div>
+              </fieldset>
+              <label class="field">
+                <span class="sr">School</span>
+                <input type="text" name="school" list="schools" placeholder="Start typing your school" autocomplete="off" maxlength="120" required>
+              </label>
+              <input class="trap" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+              <button class="btn" type="submit">
+                <span class="label">Join the waitlist</span>
+                <span class="spinner" aria-hidden="true"></span>
+              </button>
+              <p class="error" role="alert" hidden></p>
+              <p class="fine">For students 14 and up in Canada and the USA. We'll email you when Duesday launches. No spam. <a href="privacy.html">Privacy</a> · <a href="support.html">Support</a></p>
+            </form>
+            <p class="also-in" hidden>You're on the list. <a href="#signup">See your spot and your invite link</a></p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>Built by Andre, a student at Brandon University. For Mac, iPad, and iPhone.</span>
+      <nav>
+        <a href="privacy.html">Privacy</a>
+        <a href="support.html">Support</a>
+        <a href="mailto:hello@duesdayapp.com">hello@duesdayapp.com</a>
+      </nav>
+    </footer>
+  </div>
+
+  <!-- Slim bar on phones, once the first form has scrolled away -->
+  <div class="stickybar" aria-hidden="true"><a class="btn" href="#final" tabindex="-1">Join the waitlist</a></div>
+
+  <datalist id="schools">
     <option value="Acadia University">
     <option value="Algoma University">
     <option value="Algonquin College">
@@ -198,74 +884,9 @@
     <option value="York University">
     <option value="Yukon University">
     <option value="École de technologie supérieure">
-          </datalist>
-          <datalist id="exams">
-            <option value="CPA"><option value="CSC"><option value="LSAT"><option value="MCAT"><option value="NCLEX (nursing)"><option value="GMAT"><option value="GRE"><option value="SAT"><option value="ACT">
-          </datalist>
-          <input class="trap" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <button class="btn" type="submit">
-            <span class="label">Join the waitlist</span>
-            <span class="spinner" aria-hidden="true"></span>
-          </button>
-          <p class="error" id="error" role="alert" hidden></p>
-          <p class="fine">For students 14 and up in Canada and the USA. We'll email you when Duesday launches. No spam.</p>
-        </form>
-
-        <div id="done" hidden aria-live="polite">
-          <svg class="check" viewBox="0 0 72 72" aria-hidden="true">
-            <circle cx="36" cy="36" r="34"/>
-            <path d="M22 37l10 10 19-21"/>
-          </svg>
-          <h2 id="done-title">You're in!</h2>
-          <p class="spot">You're <span class="num">#<span id="spot">0</span></span> on the list</p>
-          <p class="muted" id="total"></p>
-          <div class="invite">
-            <p><strong>Want to move up?</strong> Every friend who joins with your link bumps you up the list. Top inviters get their first month free.</p>
-            <div class="linkrow">
-              <input id="link" readonly aria-label="Your invite link">
-              <button class="btn small" id="copy" type="button">Copy</button>
-            </div>
-            <button class="btn secondary" id="share" type="button" hidden>Share with friends</button>
-          </div>
-        </div>
-      </section>
-
-      <section class="peek" aria-label="A sneak peek of Duesday">
-        <h3>Sneak peek</h3>
-        <div class="card stagger">
-          <div class="peek-row">
-            <span class="peek-title">Today</span>
-            <span class="flame" aria-label="12 study sessions done">🔥 <span class="num">12</span></span>
-          </div>
-          <div class="block">
-            <span class="when">4:00 PM · 90 min</span>
-            <span class="what">Exam Prep Macroeconomics</span>
-            <span class="how">Your midterm is Thursday. Open your notes and go.</span>
-          </div>
-          <div class="estimate">
-            <span>What do I need?<small>To hit your B+ in Macroeconomics</small></span>
-            <span class="num">about 81%</span>
-          </div>
-        </div>
-      </section>
-
-      <ul class="features">
-        <li><span class="dot">📄</span><div><strong>Reads your syllabus</strong><span class="t">Drop in a PDF, photo, or Word doc. Duesday finds every test, due date, and class time. You check it before anything happens.</span></div></li>
-        <li><span class="dot">🗓️</span><div><strong>Plans around your life</strong><span class="t">Study sessions land in your free time, never on top of class, work, or sleep, and never on more days a week than you pick.</span></div></li>
-        <li><span class="dot">🎯</span><div><strong>Know what you need</strong><span class="t">Your grade so far in every class, and about what you need on the rest to hit your goal.</span></div></li>
-        <li><span class="dot">✏️</span><div><strong>Notes, typed or handwritten</strong><span class="t">A full notes app with Apple Pencil, so you don't need a second one. Studying is just taking notes.</span></div></li>
-        <li><span class="dot">🔥</span><div><strong>Streaks that never break</strong><span class="t">Every study session adds to your streak, and it never goes down. Add friends and help your school climb the national board.</span></div></li>
-      </ul>
-    </main>
-
-    <footer>
-      <span>Built by Andre, a student at Brandon University. For Mac, iPad, and iPhone.</span>
-      <nav>
-        <a href="privacy.html">Privacy</a>
-        <a href="support.html">Support</a>
-      </nav>
-    </footer>
-  </div>
-  <script src="app.js"></script>
+  </datalist>
+  <datalist id="exams">
+    <option value="CPA"><option value="CSC"><option value="LSAT"><option value="MCAT"><option value="NCLEX (nursing)"><option value="GMAT"><option value="GRE"><option value="SAT"><option value="ACT">
+  </datalist>
 </body>
 </html>
