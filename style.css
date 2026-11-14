@@ -73,13 +73,13 @@ h1, h2, h3 { font-family: var(--font); margin: 0; letter-spacing: -.025em; line-
 .top { display: flex; align-items: center; justify-content: space-between; padding: 4px 0 28px; }
 .page .top { padding: 2px 0 14px; }
 .wordmark {
-  display: inline-flex; align-items: flex-end;
+  display: inline-flex; align-items: baseline;
   font-size: 28px; line-height: 1; font-weight: 800;
   color: var(--green); letter-spacing: -0.025em;
 }
 .wordmark:hover { text-decoration: none; }
 /* The folded-page mark stands in for the D, sized to the capital letters. */
-.wordmark .d { width: .74em; height: .74em; margin: 0 .01em .02em 0; flex: none; fill: currentColor; transition: transform .35s var(--spring); transform-origin: 50% 80%; }
+.wordmark .d { width: .72em; height: .72em; margin: 0 .01em 0 0; flex: none; fill: currentColor; transition: transform .35s var(--spring); transform-origin: 50% 80%; }
 .wordmark .d .page { fill: currentColor; fill-rule: evenodd; max-width: none; margin: 0; padding: 0; }
 .wordmark .d .fold { fill: currentColor; opacity: .45; }
 a.wordmark:hover .d { transform: rotate(-8deg) scale(1.08); }
